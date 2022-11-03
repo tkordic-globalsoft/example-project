@@ -29,6 +29,13 @@ func main() {
 		log.Fatalf("Error connecting to database: %s", err)
 	}
 
+	//migrator
+	migrator := postgres.NewMigrator(db)
+
+	err = migrator.ApplyMigrations()
+	if err != nil {
+		log.Printf("Error applying migrations: %s", err)
+	}
 	// Adapters
 	postRepository := repository.NewPostSqlAdapter(db)
 

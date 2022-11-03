@@ -3,31 +3,28 @@ package service
 import (
 	"context"
 	"example/core/domain/model"
-	"example/infrastructure/postgres"
 	repositoryAdapter "example/infrastructure/repository"
 	"github.com/google/uuid"
-	"log"
 	"reflect"
 	"testing"
 )
 
 func getPostService() *PostService {
+	//dbConfig := &postgres.Config{
+	//	Host:     "localhost",
+	//	Port:     "5432",
+	//	Password: "",
+	//	User:     "ivanmartinovic",
+	//	DBName:   "test",
+	//	SSLMode:  "disable",
+	//}
 
-	dbConfig := &postgres.Config{
-		Host:     "localhost",
-		Port:     "5432",
-		Password: "",
-		User:     "ivanmartinovic",
-		DBName:   "test",
-		SSLMode:  "disable",
-	}
-
-	db, err := postgres.NewConnection(dbConfig)
-	if err != nil {
-		log.Fatalf("Unable to establish connection %+v", err)
-	}
-
-	postRepository := repositoryAdapter.NewPostSqlAdapter(db)
+	//db, err := postgres.NewConnection(dbConfig)
+	//if err != nil {
+	//	log.Fatalf("Unable to establish connection %+v", err)
+	//}
+	//postRepository := repositoryAdapter.NewPostSqlAdapter(db)
+	postRepository := repositoryAdapter.NewPostMemoryAdapter()
 
 	ctx := context.Background()
 	posts := getDummyPosts()
